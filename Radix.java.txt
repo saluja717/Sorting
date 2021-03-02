@@ -1,0 +1,61 @@
+package com.company;
+import java.util.Scanner;
+public class Main {
+
+      static void radixSort(int []a,int pos,int n)
+      {
+          int []c=new int[10];
+          int []res=new int [n];
+          for(int i=0;i<9;i++)
+          {
+              c[i]=0;
+          }
+          for(int i=0;i<n;i++)
+          {
+              res[i]=0;
+          }
+          for(int i=0;i<n;i++)
+          {
+              c[(a[i]/pos)%10]++;
+          }
+          for(int i=1;i<10;i++)
+          {
+              c[i]=c[i]+c[i-1];
+          }
+          for(int i=n-1;i>=0;i--)
+          {
+              res[--c[(a[i]/pos)%10]]=a[i];
+          }
+          for(int i=0;i<n;i++)
+          {
+              a[i]=res[i];
+          }
+      }
+    public static void main(String[] args)
+      {
+          Scanner sc = new Scanner(System.in);
+          int n;
+          n= sc.nextInt();
+          int [] a= new int[n];
+          int max=0;
+          for(int i=0;i<n;i++)
+          {
+              a[i]=sc.nextInt();
+          }
+          for(int i=0;i<n;i++)
+          {
+              if(max<a[i])
+              {
+                  max=a[i];
+              }
+          }
+          for(int pos=1;(max/pos)>0;pos=pos*10) {
+              radixSort(a, pos, n);
+          }
+
+          for(int i=0;i<n;i++)
+          {
+              System.out.print(a[i]+" ");
+          }
+      }
+}
